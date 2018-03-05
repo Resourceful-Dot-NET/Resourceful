@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resourceful", "ResourcefulCLI\ResourcefulCLI.csproj", "{95518D90-BF91-4D69-812F-65E8049721B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourcefulServer", "ResourcefulServer\ResourcefulServer.csproj", "{3A842692-56A4-4456-87D0-34F52F9A193B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourcefulShared", "ResourcefulShared\ResourcefulShared.csproj", "{DF49C026-C825-45BF-9B98-142CF116897C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95518D90-BF91-4D69-812F-65E8049721B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95518D90-BF91-4D69-812F-65E8049721B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95518D90-BF91-4D69-812F-65E8049721B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95518D90-BF91-4D69-812F-65E8049721B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A842692-56A4-4456-87D0-34F52F9A193B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A842692-56A4-4456-87D0-34F52F9A193B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A842692-56A4-4456-87D0-34F52F9A193B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A842692-56A4-4456-87D0-34F52F9A193B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF49C026-C825-45BF-9B98-142CF116897C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF49C026-C825-45BF-9B98-142CF116897C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF49C026-C825-45BF-9B98-142CF116897C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF49C026-C825-45BF-9B98-142CF116897C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
