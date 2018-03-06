@@ -12,15 +12,15 @@ namespace ResourcefulServer {
     public EventReporter(int? port = null) {
       var usePort = Port = port ?? 2691;
       Server = new WebSocketServer($"ws://{LocalIPAddress}:{usePort}");
-      Server.Log.Level = LogLevel.Trace;
-      Server.Log.Output = (data, data2) => { Console.WriteLine(data2 + data); };
+      //Server.Log.Level = LogLevel.Trace;
+      //Server.Log.Output = (data, data2) => { Console.WriteLine(data2 + data); };
       Server.AddWebSocketService<Echo> ("/Echo");
       Server.Start();
       Logger.Info($"Listening on {LocalIPAddress}:{Port}");
     }
 
     public void Shutdown() {
-      Server.Stop();
+      //Server.Stop();
       Logger.Info($"Stopped listening on {LocalIPAddress}:{Port}");
     }
   }

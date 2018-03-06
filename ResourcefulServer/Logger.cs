@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO.Compression;
+using System.Linq;
 using static ResourcefulShared.Utilities;
 
 namespace ResourcefulServer {
@@ -20,6 +22,7 @@ namespace ResourcefulServer {
     private static readonly string _unixGoodColor = "\x1b[38;5;27m";
     private static readonly string _unixBadColor = "\x1b[38;5;203m";
     private static readonly string _unixInfoColor = "\x1b[38;5;49m";
+    private static readonly string _unixColorReset = "\x1b[0m";
 
     #endregion
 
@@ -42,6 +45,10 @@ namespace ResourcefulServer {
 
     public static void Info(string text) {
       WriteMessage(text, MessageType.Info);
+    }
+
+    private static string FixGutter(string text) {
+      return string.Join("\n ", text.Split('\n'));
     }
 
     private static void WriteMessage(string text, MessageType msgType) {
@@ -71,13 +78,13 @@ namespace ResourcefulServer {
           return;
       }
 
-      var message = gutter + text;
+      var message = gutter + FixGutter(text);
 
       if (IsConsoleApp && ResourcefulServer.LogToConsole) {
         if (IsWindows)
           Colorful.Console.WriteLine(message, windowsColor);
         else
-          Console.WriteLine(unixColor + message);
+          Console.WriteLine(unixColor + message + _unixColorReset);
       }
       else {
         Debug.WriteLine(text);

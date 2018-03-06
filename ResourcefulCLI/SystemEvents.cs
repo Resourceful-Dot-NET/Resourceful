@@ -29,8 +29,8 @@ namespace ResourcefulCLI {
     #region Constructors
 
     static SystemEvents() {
-      Console.CancelKeyPress += (s, ev) => ev.Cancel = OnExit?.Invoke(CtrlType.CTRL_C_EVENT) ?? false;
       AppDomain.CurrentDomain.ProcessExit += (s, ev) => OnExit?.Invoke(CtrlType.CTRL_CLOSE_EVENT);
+      Console.CancelKeyPress += (s, ev) => ev.Cancel = OnExit?.Invoke(CtrlType.CTRL_C_EVENT) ?? false;
 
       if (IsWindows) {
         SetConsoleCtrlHandler(ctrlType => OnExit?.Invoke(ctrlType) ?? true, add: true);
