@@ -95,9 +95,15 @@
     <PlatformTarget>iPhoneSimulator</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
+      <HintPath>..\packages\protobuf-net.2.3.7\lib\netstandard2.0\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="websocket-sharp, Version=1.0.1.0, Culture=neutral, PublicKeyToken=5660b08a1845a91e">
+      <HintPath>..\packages\WebSocketSharp-netstandard.1.0.1\lib\netstandard2.0\websocket-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
@@ -130,6 +136,12 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Resourceful\Resourceful.csproj">
+      <Project>{fd79312f-168c-4c05-9b28-8e3f4488dae8}</Project>
+      <Name>Resourceful</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Resourceful.Xamarin.TestApp\Resourceful.Xamarin.TestApp.projitems" Label="Shared" Condition="Exists('..\Resourceful.Xamarin.TestApp\Resourceful.Xamarin.TestApp.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -11,6 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ResourcefulServer\ResourcefulServer.csproj" />
-    <ProjectReference Include="..\ResourcefulShared\ResourcefulShared.csproj" />
   </ItemGroup>
+  <Import Project="..\ResourcefulShared\ResourcefulShared.projitems" Label="Shared" />
 </Project>

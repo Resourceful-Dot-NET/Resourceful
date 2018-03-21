@@ -1,4 +1,7 @@
-﻿namespace ResourcefulServer {
+﻿using System.IO;
+using ResourcefulShared;
+
+namespace ResourcefulServer {
   public class ResourcefulServer {
 
     private string _path = "";
@@ -35,6 +38,11 @@
       FileWatcher = new FileWatcher(path);
       EventReporter = new EventReporter(port);
       Port = EventReporter.Port;
+      FileWatcher.ResourceModified += e => {
+        using (var streamReader = new StreamReader(e.FullPath)) {
+          EventReporter.Report(new EmbeddedResource("test", streamReader.BaseStream));
+        }
+      };
     }
 
     public void ShutDown() {

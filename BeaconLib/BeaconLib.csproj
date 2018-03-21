@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
+    <Description>Simple automatic (local) network discovery in C</Description>
+    <Company>Rico Huijbers</Company>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageLicenseUrl>https://github.com/rix0rrr/beacon/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/rix0rrr/beacon</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rix0rrr/beacon</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageReleaseNotes>Beacon is a small C# library that helps remove some of the user annoyances involved in writing client-server applications: finding the address of the server to connect to.</PackageReleaseNotes>
+    <PackageTags>automatic network discovery</PackageTags>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+</Project>

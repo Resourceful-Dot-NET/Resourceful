@@ -23,7 +23,7 @@ namespace ResourcefulServer {
 
     public FileSystemWatcher Watcher { get; set; }
 
-    public delegate void ModifiedHandler();
+    public delegate void ModifiedHandler(FileSystemEventArgs fsEvent);
 
     #endregion
 
@@ -59,6 +59,7 @@ namespace ResourcefulServer {
     private void OnChanged(object source, FileSystemEventArgs e) {
       // Specify what is done when a file is changed, created, or deleted.
       Logger.Info($"File: {e.FullPath} was {e.ChangeType.ToString().ToLower()}.");
+      ResourceModified?.Invoke(e);
     }
 
     #endregion
