@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.6" />
     <PackageReference Include="Kurukuru" Version="1.0.0" />
+    <PackageReference Include="MessagePack" Version="1.7.3.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ResourcefulServer\ResourcefulServer.csproj" />

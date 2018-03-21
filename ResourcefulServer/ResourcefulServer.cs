@@ -40,7 +40,13 @@ namespace ResourcefulServer {
       Port = EventReporter.Port;
       FileWatcher.ResourceModified += e => {
         using (var streamReader = new StreamReader(e.FullPath)) {
-          EventReporter.Report(new EmbeddedResource("test", streamReader.BaseStream));
+          using (var stream = new MemoryStream()) {
+            streamReader.BaseStream.CopyTo(stream);
+            EventReporter.Report(new ResourceMessage {
+              Name = "test",
+              Bytes = stream.ToArray()
+            });
+          }
         }
       };
     }

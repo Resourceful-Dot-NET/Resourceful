@@ -1,12 +1,12 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
+using MessagePack;
 using ProtoBuf;
 
 [assembly: InternalsVisibleTo("Resourceful")]
 [assembly: InternalsVisibleTo("ResourcefulServer")]
 namespace ResourcefulShared {
 
-  [ProtoContract]
   public class EmbeddedResource {
 
     #region Fields
@@ -19,7 +19,6 @@ namespace ResourcefulShared {
 
     #region Properties
 
-    [ProtoMember(1)]
     public string Name { get; internal set; }
     public string FileName { get; internal set; }
     public string Extension { get; internal set; }
@@ -38,7 +37,6 @@ namespace ResourcefulShared {
 
     public Stream Stream => new MemoryStream(Bytes);
 
-    [ProtoMember(2)]
     public byte[] Bytes {
       get => _bytes;
       internal set {

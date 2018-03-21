@@ -2,6 +2,7 @@
 using System.Reflection;
 using BeaconLib;
 using Colorful;
+using MessagePack;
 using ProtoBuf;
 using ResourcefulShared;
 using WebSocketSharp;
@@ -31,11 +32,13 @@ namespace ResourcefulServer {
       Logger.Info($"Stopped listening on {LocalIPAddress}:{Port}");
     }
 
-    public void Report(EmbeddedResource embeddedResource) {
-      using (var stream = new MemoryStream()) {
-        Serializer.Serialize(stream, embeddedResource);
-        Server.WebSocketServices.Broadcast(stream.ToArray());
-      }
+    public void Report(ResourceMessage resourceMessage) {
+      //using (var stream = new MemoryStream()) {
+        //Serializer.Serialize(stream, embeddedResource);
+      var bytes = MessagePackSerializer.Serialize(resourceMessage);
+        //Server.WebSocketServices.Broadcast(stream.ToArray());
+      Server.WebSocketServices.Broadcast(bytes);
+      //}
     }
 
     private void AdvertiseServer() {

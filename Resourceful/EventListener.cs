@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using BeaconLib;
+using MessagePack;
 using ProtoBuf;
 using ResourcefulShared;
 using WebSocketSharp;
@@ -44,8 +45,9 @@ namespace Resourceful {
       var ws = new WebSocket ($"ws://{address}/");
       WebSockets.Add(ws);
       ws.OnMessage += (sender, e) => {
-        var res = Serializer.Deserialize<EmbeddedResource>(new MemoryStream(e.RawData));
-        Debug.WriteLine(res);
+        //var res = Serializer.Deserialize<EmbeddedResource>(new MemoryStream(e.RawData));
+        var res = MessagePackSerializer.Deserialize<ResourceMessage>(e.RawData);
+        Debug.WriteLine(new EmbeddedResource(res.Name, res.Bytes));
       };
 
       ws.Connect();
