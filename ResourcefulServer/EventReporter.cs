@@ -2,8 +2,8 @@
 using System.Reflection;
 using BeaconLib;
 using Colorful;
-using MessagePack;
-using ProtoBuf;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using ResourcefulShared;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -33,12 +33,13 @@ namespace ResourcefulServer {
     }
 
     public void Report(ResourceMessage resourceMessage) {
-      //using (var stream = new MemoryStream()) {
-        //Serializer.Serialize(stream, embeddedResource);
-      var bytes = MessagePackSerializer.Serialize(resourceMessage);
-        //Server.WebSocketServices.Broadcast(stream.ToArray());
-      Server.WebSocketServices.Broadcast(bytes);
-      //}
+      using (var memoryStream = new MemoryStream()) {
+        using (var writer = new BsonDataWriter(memoryStream)) {
+          var serializer = new JsonSerializer();
+          serializer.Serialize(writer, resourceMessage);
+          Server.WebSocketServices.Broadcast(memoryStream.ToArray());
+        }
+      }
     }
 
     private void AdvertiseServer() {

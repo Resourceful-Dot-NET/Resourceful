@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Net;
-using ProtoBuf;
 using ResourcefulShared;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -19,7 +18,7 @@ namespace ResourcefulServer {
 
     public void SendMessage(EmbeddedResource embeddedResource) {
       using (var stream = new MemoryStream()) {
-        Serializer.Serialize(stream, embeddedResource);
+        //Serializer.Serialize(stream, embeddedResource);
         Sessions.Broadcast(stream, (int)stream.Length);
       }
     }

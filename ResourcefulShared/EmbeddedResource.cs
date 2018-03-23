@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
-using MessagePack;
-using ProtoBuf;
 
 [assembly: InternalsVisibleTo("Resourceful")]
 [assembly: InternalsVisibleTo("ResourcefulServer")]

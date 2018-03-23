@@ -27,7 +27,7 @@ namespace ResourcefulCLI {
           IsFinishedWatching.SetResult(true);
         }
         _watching = value;
-      }
+      } 
     }
 
 
@@ -74,7 +74,7 @@ namespace ResourcefulCLI {
     private static void WriteLogo() {
       if (IsWindows) WriteLogoForUnix();
       else WriteLogoForUnix();
-    } 
+    }
 
     private static void WriteLogoForWindows() {
       var font = FigletFont.Load("Fonts/slant.flf");

@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using BeaconLib;
-using MessagePack;
-using ProtoBuf;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using ResourcefulShared;
 using WebSocketSharp;
 
@@ -45,9 +45,13 @@ namespace Resourceful {
       var ws = new WebSocket ($"ws://{address}/");
       WebSockets.Add(ws);
       ws.OnMessage += (sender, e) => {
-        //var res = Serializer.Deserialize<EmbeddedResource>(new MemoryStream(e.RawData));
-        var res = MessagePackSerializer.Deserialize<ResourceMessage>(e.RawData);
-        Debug.WriteLine(new EmbeddedResource(res.Name, res.Bytes));
+        using (var memoryStream = new MemoryStream(e.RawData)) {
+          using (var reader = new BsonDataReader(memoryStream)) {
+            var serializer = new JsonSerializer();
+            var res = serializer.Deserialize<ResourceMessage>(reader);
+            Debug.WriteLine(new EmbeddedResource(res.Name, res.Bytes));
+          }
+        }
       };
 
       ws.Connect();
