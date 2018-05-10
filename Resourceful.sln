@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaconLib", "BeaconLib\Beac
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ResourcefulShared", "ResourcefulShared\ResourcefulShared.shproj", "{D1EA04EB-0A80-4F3A-877A-10497DC36051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resourceful.Wpf.TestApp", "Resourceful.Wpf.TestApp\Resourceful.Wpf.TestApp.csproj", "{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,5 +100,17 @@ Global
 		{F794DECD-5A9D-4DD2-8475-02331E1EB135}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{F794DECD-5A9D-4DD2-8475-02331E1EB135}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{F794DECD-5A9D-4DD2-8475-02331E1EB135}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|iPhone.Build.0 = Release|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
