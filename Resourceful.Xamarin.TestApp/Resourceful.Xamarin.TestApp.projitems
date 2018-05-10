@@ -23,5 +23,6 @@
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)TestResources\test.txt" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)TestResources\font-size.txt" />
   </ItemGroup>
 </Project>

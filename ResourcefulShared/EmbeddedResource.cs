@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Resourceful")]
 [assembly: InternalsVisibleTo("ResourcefulServer")]
+
 namespace ResourcefulShared {
 
   public class EmbeddedResource {
@@ -10,17 +11,20 @@ namespace ResourcefulShared {
     #region Fields
 
     private string _text;
+    private byte[] _bytes = new byte[0];
 
-    private byte[] _bytes;
+    public delegate void ResourceUpdatedEventHandler(object sender, ResourceUpdatedEventArgs resourceUpdatedEventArgs);
 
     #endregion
 
     #region Properties
 
-    public string Name { get; internal set; }
+    public string AssemblyName { get; internal set; }
+    public string Identifier { get; internal set; }
     public string FileName { get; internal set; }
     public string Extension { get; internal set; }
     public string Path { get; internal set; }
+    public string ResourceType { get; internal set; }
 
     public string Text {
       get {
@@ -45,15 +49,21 @@ namespace ResourcefulShared {
 
     #endregion
 
+    #region Events
+
+    public event ResourceUpdatedEventHandler Updated;
+
+    #endregion
+
     #region Constructors
 
-    internal EmbeddedResource(string name, byte[] bytes) {
-      Name = name;
+    public EmbeddedResource(string identifier, byte[] bytes) {
+      Identifier = identifier;
       Bytes = bytes;
     }
 
-    internal EmbeddedResource(string name, Stream stream) {
-      Name = name;
+    public EmbeddedResource(string identifier, Stream stream) {
+      Identifier = identifier;
 
       using (var memoryStream = new MemoryStream()) {
         stream.CopyTo(memoryStream);
@@ -75,6 +85,11 @@ namespace ResourcefulShared {
 
     public static implicit operator byte[](EmbeddedResource er) {
       return er.Bytes;
+    }
+
+    internal void Update(byte[] bytes) {
+      Bytes = bytes;
+      Updated?.Invoke(this, new ResourceUpdatedEventArgs(this));
     }
 
     #endregion

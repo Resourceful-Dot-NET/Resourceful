@@ -36,6 +36,7 @@ namespace ResourcefulServer {
 
       Watcher = new FileSystemWatcher {
         Path = CurrentWatchingPath,
+        IncludeSubdirectories = true,
         EnableRaisingEvents = startWatching
       };
 

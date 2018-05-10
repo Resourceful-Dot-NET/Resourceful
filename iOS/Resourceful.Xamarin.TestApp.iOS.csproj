@@ -152,6 +152,9 @@
       <Name>Resourceful</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="test2.txt" />
+  </ItemGroup>
   <Import Project="..\Resourceful.Xamarin.TestApp\Resourceful.Xamarin.TestApp.projitems" Label="Shared" Condition="Exists('..\Resourceful.Xamarin.TestApp\Resourceful.Xamarin.TestApp.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" />

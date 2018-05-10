@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Colorful;
+using CommandLine;
 using Kurukuru;
 using ResourcefulServer;
 using Console = Colorful.Console;
@@ -27,43 +29,45 @@ namespace ResourcefulCLI {
           IsFinishedWatching.SetResult(true);
         }
         _watching = value;
-      } 
+      }
     }
 
 
     #region Methods
 
     private static async Task Main(string[] args) {
-      /*var watcherThread = new Thread(Start);
-      watcherThread.Start();
-      signalEvent.WaitOne(); // This thread will block here until the reset event is sent.
-      signalEvent.Reset();*/
       try {
-        await Start();
+        Options options = null;
+        CommandLine.Parser.Default.ParseArguments<Options>(args)
+          .WithParsed(opts => options = opts);
+
+        if (options != null) await Start(options);
       }
       catch (Exception e) {
         Logger.Bad(e.Message + "\n" + e.StackTrace);
       }
     }
 
-    private static async Task Start() {
+    private static async Task Start(Options options) {
       // Bind exit handler.
       SystemEvents.OnExit += ctrlType => {
         Watching = false;
         Server.ShutDown();
-        //signalEvent.Set(); // Unblock main thread so the program can continue to exiting.
         return true;
       };
 
       // Print the "Resourceful" logo to the console.
       WriteLogo();
 
+      foreach (Assembly assem in AppDomain.CurrentDomain.GetAssemblies())
+        if (!assem.ToString().StartsWith("System"))Console.WriteLine(assem.ToString());
+
       // Create the file system watcher
-      Server = new ResourcefulServer.ResourcefulServer();
+      Server = new ResourcefulServer.ResourcefulServer(options.Path, options.Port);
 
       // Show the spinner indicator and start the assocaited watching loop
       await Spinner.StartAsync($"Watching {Server.Path}", async spinner => {
-        spinner.Color = ConsoleColor.Magenta;
+        spinner.Color = ConsoleColor.Green;
 
         Logger.Info("Watcher Started");
 

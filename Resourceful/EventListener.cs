@@ -12,7 +12,11 @@ using WebSocketSharp;
 namespace Resourceful {
   internal class EventListener {
 
-    private List<WebSocket> WebSockets = new List<WebSocket>();
+    private List<WebSocket> WebSockets { get; set; } = new List<WebSocket>();
+
+    internal delegate void ResourceUpdatedEventHandler(object sender, ResourceMessageEventArgs resourceMessageEventArgs);
+
+    internal event ResourceUpdatedEventHandler ResourceUpdated;
 
     internal EventListener() {
       FindServer();
@@ -49,7 +53,8 @@ namespace Resourceful {
           using (var reader = new BsonDataReader(memoryStream)) {
             var serializer = new JsonSerializer();
             var res = serializer.Deserialize<ResourceMessage>(reader);
-            Debug.WriteLine(new EmbeddedResource(res.Name, res.Bytes));
+            // Debug.WriteLine(new EmbeddedResource(res.Name, res.Bytes));
+            ResourceUpdated?.Invoke(this, new ResourceMessageEventArgs(res));
           }
         }
       };

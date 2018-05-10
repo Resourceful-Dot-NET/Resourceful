@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EmbeddedResource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ResourceMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ResourceUpdatedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
   </ItemGroup>
 </Project>

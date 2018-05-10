@@ -8,7 +8,13 @@ namespace Resourceful.Xamarin.TestApp {
     public TestAppPage() {
       InitializeComponent();
 
-      ResourceManager.Default.BindToEmbeddedResource("TestResources/test.txt", res => Label.Text = res);
+      ResourceManager.Default
+        .BindToEmbeddedResource("TestResources/test.txt",
+          res => Device.BeginInvokeOnMainThread(() => Label.Text = res))
+        .BindToEmbeddedResource("TestResources/font-size.txt",
+          res => Device.BeginInvokeOnMainThread(() => Label.FontSize = double.Parse(res)));
+
+
     }
   }
 }

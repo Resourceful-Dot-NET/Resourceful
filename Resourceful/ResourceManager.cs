@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Resourceful.Plugin;
 using ResourcefulShared;
 
 namespace Resourceful {
   public class ResourceManager {
+
+    #region Fields
+
+    private List<EmbeddedResource> EmbeddedResources { get; } = new List<EmbeddedResource>();
+
+    internal delegate void ResourceUpdatedEventdHandler(object sender, ResourceUpdatedEventArgs resourceUpdatedEventArgs);
+
+    internal event ResourceUpdatedEventdHandler ResourceUpdated;
+
+    #endregion
 
     #region Properties
 
@@ -16,7 +26,10 @@ namespace Resourceful {
     public static ResourceManager Default => ForAssembly(Assembly.GetCallingAssembly());
     private static Dictionary<string, ResourceManager> ResourceManagers { get; } = new Dictionary<string, ResourceManager>();
     private static EventListener EventListener { get; } = new EventListener();
-    private List<EmbeddedResource> EmbeddedResources = new List<EmbeddedResource>();
+    private static List<IResourcefulPlugin> Plugins { get; } = new List<IResourcefulPlugin>();
+    private static List<IResourceRetreiver> RetreiverPlugins => Plugins.OfType<IResourceRetreiver>().ToList();
+    private static List<IResourceUpdatedHandler> UpdateHandlerPlugins => Plugins.OfType<IResourceUpdatedHandler>().ToList();
+    private static List<IResourceResolver> ResolverPlugins => Plugins.OfType<IResourceResolver>().ToList();
 
     #endregion
 
@@ -30,17 +43,14 @@ namespace Resourceful {
       }
     }
 
+    static ResourceManager() {
+      FindPlugins();
+      EventListener.ResourceUpdated += ResourceUpdatedHandler;
+    }
+
     #endregion
 
     #region Methods
-
-    public EmbeddedResource GetEmbeddedResource(string resourcePath) {
-      return EmbeddedResources.FirstOrDefault(er => er.Name == PathToEmbeddedResourceName(resourcePath));
-    }
-
-    public void BindToEmbeddedResource(string resourcePath, Action<EmbeddedResource> setter) {
-      setter(GetEmbeddedResource(resourcePath));
-    }
 
     public static ResourceManager ForAssembly(Assembly assembly) {
       if (ResourceManagers.ContainsKey(assembly.FullName)) return ResourceManagers[assembly.FullName];
@@ -50,12 +60,71 @@ namespace Resourceful {
       return resourceManager;
     }
 
-    private string PathToEmbeddedResourceName(string path) {
+    public ResourceManager BindToEmbeddedResource(string resourceType, string resourcePath, Action<EmbeddedResource> setter) {
+      var res = GetEmbeddedResource(resourceType, resourcePath);
+      BindResource(res, setter);
+      return this;
+    }
+
+    public ResourceManager BindToEmbeddedResource(string resourcePath, Action<EmbeddedResource> setter) {
+      var res = GetEmbeddedResource(resourcePath);
+      BindResource(res, setter);
+      return this;
+    }
+
+    private void BindResource(EmbeddedResource res, Action<EmbeddedResource> setter) {
+      setter(res);
+      res.Updated += (sender, e) => setter(e.EmbeddedResource);
+    }
+
+    public EmbeddedResource GetEmbeddedResource(string resourcePath) {
+      return GetEmbeddedResource("EmbeddedResource", resourcePath);
+    }
+
+    public EmbeddedResource GetEmbeddedResource(string resourceType, string resourcePath) {
+      return EmbeddedResources.FirstOrDefault(er => er.Identifier == PathToEmbeddedResourceName(resourcePath, resourceType, Assembly));
+    }
+
+    private static void ResourceUpdatedHandler(object sender, ResourceMessageEventArgs resourceMessageEventArgs) {
+      var resourceMessage = resourceMessageEventArgs.ResourceMessage;
+      foreach (var resourceManagerEntry in ResourceManagers) {
+        var resourceManager = resourceManagerEntry.Value;
+
+        resourceManager.EmbeddedResources
+          .Where(r => r.Identifier ==
+                      PathToEmbeddedResourceName(
+                        resourceMessage.Identifier,
+                        resourceMessage.ResourceType,
+                        resourceManager.Assembly)).ToList()
+          .ForEach(r => {
+            r.Update(resourceMessage.Bytes);
+            resourceManager.ResourceUpdated?.Invoke(resourceManager, new ResourceUpdatedEventArgs(r));
+          });
+      }
+    }
+
+    private static void FindPlugins() {
+      var pluginInterfaceType = typeof(IResourcefulPlugin);
+      AppDomain.CurrentDomain.GetAssemblies()
+        .Where(assembly => !assembly.ToString().StartsWith("System"))
+        .SelectMany(assembly => assembly.GetTypes())
+        .Where(type => (pluginInterfaceType.IsAssignableFrom(type) && !type.IsInterface))
+        .ToList().ForEach(plugin =>
+          Plugins.Add((IResourcefulPlugin)Activator.CreateInstance(type: plugin)));
+    }
+
+    private static string PathToEmbeddedResourceName(string path, string resourceType, Assembly forAssembly) {
       // Strip out leading dots and slashes
       path = Regex.Replace(path, @"^(\.)*(?:\/|\\)?", "");
 
-      // Return the correct resource name for a given path
-      return $"{Assembly.GetName().Name}.{Regex.Replace(path, @"\/|\\", ".")}";
+      // Normalize slashes
+      path = Regex.Replace(path, @"(\/|\\)+", "/");
+
+      var resolver = ResolverPlugins
+        .FirstOrDefault(plugin =>
+          (plugin as IResourcefulPlugin)?.HandlesTypes.Contains(resourceType) ?? false);
+
+      return resolver?.PathToIdentifier(path, forAssembly) ?? "";
     }
 
     #endregion
