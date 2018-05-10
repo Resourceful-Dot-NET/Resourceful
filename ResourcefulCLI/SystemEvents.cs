@@ -33,7 +33,7 @@ namespace ResourcefulCLI {
       Console.CancelKeyPress += (s, ev) => ev.Cancel = OnExit?.Invoke(CtrlType.CTRL_C_EVENT) ?? false;
 
       if (IsWindows) {
-        SetConsoleCtrlHandler(ctrlType => OnExit?.Invoke(ctrlType) ?? true, add: true);
+        //SetConsoleCtrlHandler(ctrlType => OnExit?.Invoke(ctrlType) ?? true, add: true);
       }
     }
 
