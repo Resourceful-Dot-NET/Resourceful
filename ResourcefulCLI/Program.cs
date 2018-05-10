@@ -73,7 +73,7 @@ namespace ResourcefulCLI {
     }
 
     private static void WriteLogo() {
-      if (IsWindows) WriteLogoForUnix();
+      if (IsWindows) WriteLogoForWindows();
       else WriteLogoForUnix();
     }
 
@@ -81,21 +81,10 @@ namespace ResourcefulCLI {
       var font = FigletFont.Load("Fonts/slant.flf");
       var figlet = new Figlet(font);
 
-      for (var line = 0; line < figlet.ToAscii("Resourceful").CharacterGeometry.GetLength(0); line++) {
-        var lineChars = figlet.ToAscii("Resourceful").CharacterGeometry;
-        var rowChars = new List<char>();
-
-        for (var col = 0; col < lineChars.GetLength(1); col++) {;
-          rowChars.Add(lineChars[line, col]);
-        }
-
-        Console.WriteWithGradient(
-          input: rowChars,
-          startColor: Color.Yellow,
-          endColor: Color.Fuchsia);
-
-        Console.Write("\n");
-      }
+      System.Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.WriteLine(figlet.ToAscii("Resourceful"));
+      System.Console.ResetColor();
+      Console.Write("\n");
     }
 
     private static void WriteLogoForUnix() {

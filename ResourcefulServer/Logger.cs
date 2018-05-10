@@ -19,6 +19,9 @@ namespace ResourcefulServer {
     private static readonly string _goodGutter = "✓ ";
     private static readonly string _badGutter = "✗ ";
     private static readonly string _infoGutter = "ℹ ";
+    private static readonly string _windowsGoodGutter = "!) ";
+    private static readonly string _windowsBadGutter = "x) ";
+    private static readonly string _windowsInfoGutter = "i) ";
     private static readonly string _unixGoodColor = "\x1b[38;5;41m";
     private static readonly string _unixBadColor = "\x1b[38;5;203m";
     private static readonly string _unixInfoColor = "\x1b[38;5;49m";
@@ -48,7 +51,7 @@ namespace ResourcefulServer {
     }
 
     private static string FixGutter(string text) {
-      return string.Join("\n ", text.Split('\n'));
+      return string.Join("\n " + (IsWindows ? "  " : ""), text.Split('\n'));
     }
 
     private static void WriteMessage(string text, MessageType msgType) {
@@ -56,23 +59,23 @@ namespace ResourcefulServer {
 
       string gutter;
       string unixColor;
-      Color windowsColor;
+      ConsoleColor windowsColor;
 
       switch (msgType) {
         case MessageType.Good:
-          gutter = _goodGutter;
+          gutter = IsWindows ? _windowsGoodGutter : _goodGutter;
           unixColor = _unixGoodColor;
-          windowsColor = Color.GreenYellow;
+          windowsColor = ConsoleColor.Green;
           break;
         case MessageType.Bad:
-          gutter = _badGutter;
+          gutter = IsWindows ? _windowsBadGutter : _badGutter;
           unixColor = _unixBadColor;
-          windowsColor = Color.Tomato;
+          windowsColor = ConsoleColor.Red;
           break;
         case MessageType.Info:
-          gutter = _infoGutter;
+          gutter = IsWindows ? _windowsInfoGutter : _infoGutter;
           unixColor = _unixInfoColor;
-          windowsColor = Color.DarkTurquoise;
+          windowsColor = ConsoleColor.Cyan;
           break;
         default:
           return;
@@ -81,10 +84,14 @@ namespace ResourcefulServer {
       var message = gutter + FixGutter(text);
 
       if (IsConsoleApp && ResourcefulServer.LogToConsole) {
-        if (IsWindows)
-          Colorful.Console.WriteLine(message, windowsColor);
-        else
+        if (IsWindows) {
+          Console.ForegroundColor = windowsColor;
+          Console.WriteLine(message);
+          Console.ResetColor();
+        }
+        else {
           Console.WriteLine(unixColor + message + _unixColorReset);
+        }
       }
       else {
         Debug.WriteLine(text);
