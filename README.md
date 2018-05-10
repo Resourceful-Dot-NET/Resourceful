@@ -9,5 +9,5 @@ Resourceful is currently functioning, but isn't quite ready for use yet. Still m
 - [ ] Make Nuget packages
 - [ ] Write unit tests
 - [ ] Write working plugin
-- [ ] Write WPF integration tests
+- [x] Write WPF integration tests
 - [ ] Write configuration code
