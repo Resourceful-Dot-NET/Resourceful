@@ -19,7 +19,7 @@ namespace ResourcefulServer {
     private static readonly string _goodGutter = "✓ ";
     private static readonly string _badGutter = "✗ ";
     private static readonly string _infoGutter = "ℹ ";
-    private static readonly string _unixGoodColor = "\x1b[38;5;27m";
+    private static readonly string _unixGoodColor = "\x1b[38;5;41m";
     private static readonly string _unixBadColor = "\x1b[38;5;203m";
     private static readonly string _unixInfoColor = "\x1b[38;5;49m";
     private static readonly string _unixColorReset = "\x1b[0m";

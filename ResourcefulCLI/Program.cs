@@ -59,9 +59,6 @@ namespace ResourcefulCLI {
       // Print the "Resourceful" logo to the console.
       WriteLogo();
 
-      foreach (Assembly assem in AppDomain.CurrentDomain.GetAssemblies())
-        if (!assem.ToString().StartsWith("System"))Console.WriteLine(assem.ToString());
-
       // Create the file system watcher
       Server = new ResourcefulServer.ResourcefulServer(options.Path, options.Port);
 
