@@ -19,6 +19,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ResourcefulShared", "Resour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resourceful.Wpf.TestApp", "Resourceful.Wpf.TestApp\Resourceful.Wpf.TestApp.csproj", "{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourcefulServerTests", "ResourcefulServerTests\ResourcefulServerTests.csproj", "{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,5 +114,17 @@ Global
 		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{AC1EBC92-36B7-4D47-B577-6CFA15BA9A29}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Release|iPhone.Build.0 = Release|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7B0A6279-6CF6-40BB-B3FA-27BFE4E70620}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

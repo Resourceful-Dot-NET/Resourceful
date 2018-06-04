@@ -21,7 +21,7 @@ namespace ResourcefulServer {
       }
     }
 
-    public FileSystemWatcher Watcher { get; set; }
+    public FileSystemWatcher Watcher { get; }
 
     public delegate void ModifiedHandler(FileSystemEventArgs fsEvent);
 
