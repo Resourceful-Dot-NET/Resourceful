@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/Resourceful-Dot-NET/Resourceful</projectUrl>
+    <iconUrl>https://github.com/Resourceful-Dot-NET/Resourceful/raw/master/Media/Icon-CLI.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Resourceful CLI is a server CLI used for live reloading functionality in the Resourceful library.</description>
+    <releaseNotes>Initial release of Resourceful CLI</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>livereload embeddedresource embedded resource manager live reload refresh cli</tags>
+  </metadata>
+  <files>
+    <file src="_._" target="lib/netstandard1.0/" />
+    <file src="bin\Release\netcoreapp2.0\**\*" target="tools\netcoreapp2.0\" />
+  </files>
+</package>

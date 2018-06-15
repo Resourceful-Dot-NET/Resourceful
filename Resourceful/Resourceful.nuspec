@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/Resourceful-Dot-NET/Resourceful</projectUrl>
+    <iconUrl>https://github.com/Resourceful-Dot-NET/Resourceful/raw/master/Media/Icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Resourceful is a package to facilitate loading resources embedded into the assembly as well as enabling the ability to live reload them.</description>
+    <releaseNotes>Initial release of Resourceful.Net</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>livereload embeddedresource embedded resource manager live reload refresh</tags>
+  </metadata>
+</package>
