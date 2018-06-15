@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="1174" src="https://github.com/Resourceful-Dot-NET/Resourceful/raw/master/Media/Logo.png">
+</p>
+
 # Resourceful
 Resourceful is a .NET resource manager and live reloader 🙂
 
