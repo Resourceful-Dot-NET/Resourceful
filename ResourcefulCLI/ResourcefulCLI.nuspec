@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>Resourceful.Net.CLI</id>
+    <version>0.0.0</version>
+    <title>Resourceful.Net CLI</title>
+    <authors>John Louderback</authors>
+    <owners>John Louderback</owners>
     <projectUrl>https://github.com/Resourceful-Dot-NET/Resourceful</projectUrl>
     <iconUrl>https://github.com/Resourceful-Dot-NET/Resourceful/raw/master/Media/Icon-CLI.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,9 +13,11 @@
     <releaseNotes>Initial release of Resourceful CLI</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>livereload embeddedresource embedded resource manager live reload refresh cli</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
   </metadata>
   <files>
-    <file src="_._" target="lib/netstandard1.0/" />
-    <file src="bin\Release\netcoreapp2.0\**\*" target="tools\netcoreapp2.0\" />
+    <file src="$publishdir$" target="tools/netcoreapp2.1/any/" />
   </files>
 </package>

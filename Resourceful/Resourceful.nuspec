@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>Resourceful.Net</id>
+    <version>0.0.0</version>
+    <title>Resourceful.Net</title>
+    <authors>John Louderback</authors>
+    <owners>John Louderback</owners>
     <projectUrl>https://github.com/Resourceful-Dot-NET/Resourceful</projectUrl>
     <iconUrl>https://github.com/Resourceful-Dot-NET/Resourceful/raw/master/Media/Icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
