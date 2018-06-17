@@ -17,7 +17,6 @@ namespace ResourcefulServer {
 
     public EventReporter(int? port = null) {
       var usePort = Port = port ?? 12690;
-      Logger.Info($"Port: {usePort}");
       Server = new WebSocketServer($"ws://{LocalIPAddress}:{usePort}");
       //Server.Log.Level = LogLevel.Trace;
       //Server.Log.Output = (data, data2) => { Console.WriteLine(data2 + data); };

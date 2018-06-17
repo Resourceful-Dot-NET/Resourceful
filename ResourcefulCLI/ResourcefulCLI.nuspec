@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Resourceful.Net.CLI</id>
-    <version>0.0.0</version>
+    <version>0.0.0-alpha</version>
     <title>Resourceful.Net CLI</title>
     <authors>John Louderback</authors>
     <owners>John Louderback</owners>

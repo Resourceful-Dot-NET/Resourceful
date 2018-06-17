@@ -29,5 +29,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ResourcefulServer\ResourcefulServer.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Fonts\slant.flf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="..\ResourcefulShared\ResourcefulShared.projitems" Label="Shared" />
 </Project>

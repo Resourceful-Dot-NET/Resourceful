@@ -77,9 +77,14 @@ namespace ResourcefulCLI {
       else WriteLogoForUnix();
     }
 
+    private static Figlet GetFont() {
+      var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      var font = FigletFont.Load(Path.Combine(assemblyFolder, "Fonts/slant.flf"));
+      return new Figlet(font);
+    }
+
     private static void WriteLogoForWindows() {
-      var font = FigletFont.Load("Fonts/slant.flf");
-      var figlet = new Figlet(font);
+      var figlet = GetFont();
 
       System.Console.ForegroundColor = ConsoleColor.Yellow;
       Console.WriteLine(figlet.ToAscii("Resourceful"));
@@ -88,8 +93,7 @@ namespace ResourcefulCLI {
     }
 
     private static void WriteLogoForUnix() {
-      var font = FigletFont.Load("Fonts/slant.flf");
-      var figlet = new Figlet(font);
+      var figlet = GetFont();
 
       for (var line = 0; line < figlet.ToAscii("Resourceful").CharacterGeometry.GetLength(0); line++) {
         var lineChars = figlet.ToAscii("Resourceful").CharacterGeometry;

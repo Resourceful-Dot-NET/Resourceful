@@ -31,6 +31,20 @@ namespace ResourcefulServer {
       }
     }
 
+    public ReadOnlyCollection<string> AllWatchableDirectories {
+      get {
+        var allWatchableDirectories = new HashSet<string>();
+
+        foreach (var projectFile in ProjectFiles) {
+          foreach (var watchableDirectory in projectFile.WatchableDirectories) {
+            allWatchableDirectories.Add(watchableDirectory);
+          }
+        }
+
+        return allWatchableDirectories.ToList().AsReadOnly();
+      }
+    }
+
     #endregion
 
     public ProjectFileManager(string forDirectory) {
@@ -45,7 +59,10 @@ namespace ResourcefulServer {
       var files = directoryInfo.GlobFiles("**/*.csproj");
 
       _projectFiles.Clear();
-      foreach (var file in files) AddProjectFile(file);
+      foreach (var file in files) {
+        Logger.Good($"Found project file \"{file.Name}\"");
+        AddProjectFile(file);
+      }
     }
 
     public IEnumerable<ProjectFile> ProjectFilesOfKnownResource(KnownResource knownResource) {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ResourcefulShared;
@@ -39,44 +40,45 @@ namespace ResourcefulServer {
 
     private void SetUp(string path = "", int? port = null) {
       EventReporter = new EventReporter((port ?? 0) != 0 ? port : null);
+      path = string.IsNullOrWhiteSpace(path) ? Directory.GetCurrentDirectory() : path;
       ProjectFileManager = new ProjectFileManager(path);
 
       // For all project files, watch that directory
-      foreach (var proj in ProjectFileManager.ProjectFiles) {
-        foreach (var dir in proj.WatchableDirectories) {
-          var watcher = new FileWatcher(dir);
+      foreach (var dir in ProjectFileManager.AllWatchableDirectories) {
+        var watcher = new FileWatcher(dir);
 
-          FileWatchers.Add(watcher);
+        Logger.Info($"Watching {watcher.CurrentWatchingPath}");
 
-          watcher.ResourceModified += e => {
-            KnownResource resource = null;
-            IEnumerable<ProjectFile> resourceProjFiles = null;
+        FileWatchers.Add(watcher);
 
-            foreach (var knownRes in ProjectFileManager.AllKnownResources) {
-              if (knownRes.FullPath != e.FullPath) continue;
+        watcher.ResourceModified += e => {
+          KnownResource resource = null;
+          IEnumerable<ProjectFile> resourceProjFiles = null;
 
-              resource = knownRes;
-              resourceProjFiles = ProjectFileManager.ProjectFilesOfKnownResource(resource);
-              break;
+          foreach (var knownRes in ProjectFileManager.AllKnownResources) {
+            if (knownRes.FullPath != e.FullPath) continue;
+
+            resource = knownRes;
+            resourceProjFiles = ProjectFileManager.ProjectFilesOfKnownResource(resource);
+            break;
+          }
+
+          if (resource == null) return;
+
+          Logger.Good($"Detected resource \"{resource.Identifier}\" was changed.");
+
+          using (var streamReader = new StreamReader(e.FullPath)) {
+            using (var stream = new MemoryStream()) {
+              streamReader.BaseStream.CopyTo(stream);
+              EventReporter.Report(new ResourceMessage {
+                AssemblyName = resourceProjFiles?.First().AssemblyName,
+                Identifier = resource.Identifier,
+                ResourceType = resource.ResourceType,
+                Bytes = stream.ToArray()
+              });
             }
-
-            if (resource == null) return;
-
-            Logger.Good($"Detected resource \"{resource.Identifier}\" was changed.");
-
-            using (var streamReader = new StreamReader(e.FullPath)) {
-              using (var stream = new MemoryStream()) {
-                streamReader.BaseStream.CopyTo(stream);
-                EventReporter.Report(new ResourceMessage {
-                  AssemblyName = resourceProjFiles?.First().AssemblyName,
-                  Identifier = resource.Identifier,
-                  ResourceType = resource.ResourceType,
-                  Bytes = stream.ToArray()
-                });
-              }
-            }
-          };
-        }
+          }
+        };
       }
 
       Port = EventReporter.Port;

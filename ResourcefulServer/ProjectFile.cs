@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -28,9 +29,11 @@ namespace ResourcefulServer {
     private string Xml { get; }
     private ProjectFileManager Manager { get; }
     private IXmlDocument Document { get; }
+    private List<string> FoundResourceMessageLogs { get; } = new List<string>();
 
     // language=css
-    private string ResourceSelector { get; } = "[Include]:not(Reference):not(ProjectReference)";
+    private string ResourceSelector { get; } =
+      "[Include]:not(Reference):not(ProjectReference):not(PackageReference):not(Folder)";
 
     // language=css
     private string SharedProjSelector { get; } = "[Project$=\".projitems\"]";
@@ -60,8 +63,23 @@ namespace ResourcefulServer {
     #region Methods
 
     private void AddResource(IElement resourceDomElement, string root = null) {
-      var path = GetAbsolutePath(resourceDomElement.GetAttribute("Include"), root);
+      var resPath = resourceDomElement.GetAttribute("Include");
+      var path = GetAbsolutePath(resPath, root);
       var type = resourceDomElement.TagName;
+
+      // If the file is a source file or doesn't exist - return
+      if (type.ToLower() == "compile" ||
+          !File.Exists(path)) return;
+
+      if (FoundResourceMessageLogs.Count > 0) {
+        Console.SetCursorPosition(0, Console.CursorTop -1);
+        Logger.Info(FoundResourceMessageLogs.Last().Replace("└", "├"));
+      }
+
+      var foundMessage = $" └ Found resource \"{resPath}\"";
+      FoundResourceMessageLogs.Add(foundMessage);
+
+      Logger.Info(foundMessage);
       _knownResources.Add(new KnownResource(path, type,
         GetResourceIdentifierFromElement(resourceDomElement)));
     }
