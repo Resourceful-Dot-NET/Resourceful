@@ -5,7 +5,7 @@
 # Resourceful
 Resourceful is a .NET resource manager and live reloader 🙂
 ## Why Resourceful?
-Resourceful offers a extendable base API for loading any resource embedded into the assembly in a uniform fashion. Additionally, plugins can support live reloading functionality of different types of resources.
+Resourceful offers a extendable base API for loading any resource embedded into the assembly in a uniform fashion. Not only that, but Resourceful supports implicit casting of resources to `string`, `byte[]` and `Stream` so you don't have to. Additionally, plugins can support live reloading functionality of different types of resources.
 
 # Current State
 Resourceful is currently pre-release. It functions properly but is still considered an alpha as the API fluctuates.
@@ -33,7 +33,7 @@ Note: Your project doesn't need to be a .Net Core app to use Resourceful. .Net C
 Out of the box, Resourceful can load and live update "embedded resources". With plugins, Resourceful can potentially load and live update any type of resource that is embedded in the assembly or otherwise available to read at runtime. Resource can work with any type of .Net assembly, whether it's a console application or a Xamarin Form app. 
 
 Here's an example that takes an embedded resource text file and uses the data to set a text label in WPF:
-```
+```csharp
 using System.Windows;
 
 namespace Resourceful.Wpf.TestApp {
@@ -56,7 +56,7 @@ namespace Resourceful.Wpf.TestApp {
 
 To do this in Xamarin Forms, the code is almost exactly the same except for our callback:
 
-```
+```csharp
       ResourceManager.Default
         .BindToEmbeddedResource("TestResources/test.txt",
           res => Device.BeginInvokeOnMainThread(() => Label.Text = res))
