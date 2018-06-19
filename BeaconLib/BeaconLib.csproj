@@ -13,6 +13,6 @@
     <RepositoryType>Git</RepositoryType>
     <PackageReleaseNotes>Beacon is a small C# library that helps remove some of the user annoyances involved in writing client-server applications: finding the address of the server to connect to.</PackageReleaseNotes>
     <PackageTags>automatic network discovery</PackageTags>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
   </PropertyGroup>
 </Project>
